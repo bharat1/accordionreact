@@ -2,38 +2,61 @@ import logo from './logo.svg';
 import {useState} from 'react';
 import './App.css';
 import FlashCards from './FlashCard';
+import Accordion from './Accordion';
 
-const initial_data = [
-  {id:1, description:'Project' , quantity: 2 , packed:false} ,
-  {id:2, description:'New Member' , quantity: 4 , packed:false} ,
+// const initial_data = [
+//   {id:1, description:'Project' , quantity: 2 , packed:false} ,
+//   {id:2, description:'New Member' , quantity: 4 , packed:false} ,
 
-  {id:3, description:'Chemistry' , quantity: 2, packed:true} ,
+//   {id:3, description:'Chemistry' , quantity: 2, packed:true} ,
  
-]
+// ]
+
+const faq = [
+  {
+   title:'Accordion 1',
+   text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book'
+  },
+
+  {
+   title:'Accordion 2',
+   text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+  },
+  
+  {
+   title:'Accordion 3',
+   text: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'
+  }
+    
+];
 
 
 function App() {
-  const [items , setItems] = useState([]);
 
-  function handleItems(item){
-    setItems((items) => [...items , item])
- }
+
+//   const [items , setItems] = useState([]);
+
+//   function handleItems(item){
+//     setItems((items) => [...items , item])
+//  }
  
- function deleteItems(id){
-  setItems((items)=> items.filter((item)=> item.id !== id))
- }
+//  function deleteItems(id){
+//   setItems((items)=> items.filter((item)=> item.id !== id))
+//  }
 
- function handleToggle(id){
-  setItems((items) => items.map((item)=> item.id === id ? { ...item , packed: !items.packed}: item));
- }
+//  function handleToggle(id){
+//   setItems((items) => items.map((item)=> item.id === id ? { ...item , packed: !items.packed}: item));
+//  }
  
 
   return (
     <div className="App">
-       <Logo/>
+<Accordion data = {faq}/>
+
+       {/* <Logo/>
        <Form addItems = {handleItems} />
        <PackingList items = {items}  handleDelete = {deleteItems} handToogle = {handleToggle}/>
-       <Stats/>
+       <Stats/> */}
 
        {/* <FlashCards/> */}
     </div>
@@ -41,103 +64,103 @@ function App() {
 }
 
 
-function Logo(){
-  return <h1>Far away</h1>
+// function Logo(){
+//   return <h1>Far away</h1>
 
-}
+// }
 
-function Form({addItems}){
+// function Form({addItems}){
 
- const [description , setDescription] = useState("");
- const [num , setNum] = useState(1);
-//  const [items , setItems] = useState([]);
+//  const [description , setDescription] = useState("");
+//  const [num , setNum] = useState(1);
+// //  const [items , setItems] = useState([]);
 
  
 
 
-  function handleData(e){
-e.preventDefault();
- if(!description) return;
+//   function handleData(e){
+// e.preventDefault();
+//  if(!description) return;
 
-const newItem = {description , num , packed:false , id:Date.now()}
-console.log(newItem);
-addItems(newItem);
+// const newItem = {description , num , packed:false , id:Date.now()}
+// console.log(newItem);
+// addItems(newItem);
 
-setDescription("");
-  setNum(1);
+// setDescription("");
+//   setNum(1);
 
 
-  }
+//   }
 
-return (
-   <form onSubmit = {handleData}>
-  <div className="add-form">
-    <h3>What do you need trips</h3>
-    <select value={num} onChange={ (e) => setNum(e.target.value)}>
-     {Array.from({length: 20} , (_, i)=>i+1).map((num)=>(
-         <option value =  {num} key = {num}>{num}</option>
-     ))}
+// return (
+//    <form onSubmit = {handleData}>
+//   <div className="add-form">
+//     <h3>What do you need trips</h3>
+//     <select value={num} onChange={ (e) => setNum(e.target.value)}>
+//      {Array.from({length: 20} , (_, i)=>i+1).map((num)=>(
+//          <option value =  {num} key = {num}>{num}</option>
+//      ))}
 
-    </select>
-   <input type="text" placeholder ="Item..." value = {description} onChange = {(e)=> setDescription(e.target.value)} />
-   <button>Add</button>
-  </div>
-  </form>
-)
+//     </select>
+//    <input type="text" placeholder ="Item..." value = {description} onChange = {(e)=> setDescription(e.target.value)} />
+//    <button>Add</button>
+//   </div>
+//   </form>
+// )
 
-}
+// }
 
-function PackingList({items , handleDelete , handToogle }){
-    const [sortBy, setSortBy] = useState('input');
+// function PackingList({items , handleDelete , handToogle }){
+//     const [sortBy, setSortBy] = useState('input');
      
-    let sortItemsset;
-    if(sortBy === "input") sortItemsset = items;
+//     let sortItemsset;
+//     if(sortBy === "input") sortItemsset = items;
     
-    if(sortBy === "desc") sortItemsset = items.slice().sort((a,b) => a.desc > b.desc);
+//     if(sortBy === "desc") sortItemsset = items.slice().sort((a,b) => a.desc > b.desc);
        
-    if(sortBy ===  "packed") sortItemsset = items.slice().sort((a,b) => Number(a.packed) - Number(b.packed));
+//     if(sortBy ===  "packed") sortItemsset = items.slice().sort((a,b) => Number(a.packed) - Number(b.packed));
 
-  return <div className="list">
-     <ul>
-    {
-      items.map(item=>(
-         <Item item = {item}  handleDelete = {handleDelete} handToogle = {handToogle}  key = {item.id} />
+//   return <div className="list">
+//      <ul>
+//     {
+//       items.map(item=>(
+//          <Item item = {item}  handleDelete = {handleDelete} handToogle = {handToogle}  key = {item.id} />
 
-      ))
-    }
-
-
-
-</ul>
-<div className="action">
-      <select value={sortBy} onChange = { (e)=> setSortBy(e.target.value)} >
-     <option value="input">Default Input</option>
-     <option value="desc">Sort items</option>
-     <option value="packed">Sort By Packed</option>
-
-      </select>
-
-  </div> 
+//       ))
+//     }
 
 
-  </div>
 
-}
+// </ul>
+// <div className="action">
+//       <select value={sortBy} onChange = { (e)=> setSortBy(e.target.value)} >
+//      <option value="input">Default Input</option>
+//      <option value="desc">Sort items</option>
+//      <option value="packed">Sort By Packed</option>
 
-function Item({item , handleDelete , handToogle}){
-    return  (<li>
-      <input type="checkbox" value={item.packed} onChange = {() => handToogle(item.id)} />
-    <span style={item.packed ? {textDecoration:"line-through"}: {}}>{item.quantity} {item.description}
-    </span>
-    <button onClick={()=>handleDelete(item.id)}>X</button>
-    </li>
-    )
-}
+//       </select>
+
+//   </div> 
 
 
-function Stats(){
-  return <footer className="stats">You have X items on  your list</footer>
+//   </div>
 
-}
+// }
+
+// function Item({item , handleDelete , handToogle}){
+//     return  (<li>
+//       <input type="checkbox" value={item.packed} onChange = {() => handToogle(item.id)} />
+//     <span style={item.packed ? {textDecoration:"line-through"}: {}}>{item.quantity} {item.description}
+//     </span>
+//     <button onClick={()=>handleDelete(item.id)}>X</button>
+//     </li>
+//     )
+// }
+
+
+// function Stats(){
+//   return <footer className="stats">You have X items on  your list</footer>
+
+// }
 
 export default App;
