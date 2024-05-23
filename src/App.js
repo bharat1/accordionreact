@@ -88,6 +88,15 @@ return (
 }
 
 function PackingList({items , handleDelete , handToogle }){
+    const [sortBy, setSortBy] = useState('input');
+     
+    let sortItemsset;
+    if(sortBy === "input") sortItemsset = items;
+    
+    if(sortBy === "desc") sortItemsset = items.slice().sort((a,b) => a.desc > b.desc);
+       
+    if(sortBy ===  "packed") sortItemsset = items.slice().sort((a,b) => Number(a.packed) - Number(b.packed));
+
   return <div className="list">
      <ul>
     {
@@ -96,7 +105,21 @@ function PackingList({items , handleDelete , handToogle }){
 
       ))
     }
+
+
+
 </ul>
+<div className="action">
+      <select value={sortBy} onChange = { (e)=> setSortBy(e.target.value)} >
+     <option value="input">Default Input</option>
+     <option value="desc">Sort items</option>
+     <option value="packed">Sort By Packed</option>
+
+      </select>
+
+  </div> 
+
+
   </div>
 
 }
